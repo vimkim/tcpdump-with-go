@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"net"
 	"os"
@@ -29,16 +30,31 @@ func main() {
 }
 
 func handleConnection(conn net.Conn) {
-	// defer conn.Close()
-	buffer := make([]byte, 1024)
-	n, err := conn.Read(buffer)
-	if err != nil {
-		fmt.Println("Error reading data:", err)
-		return
+	defer conn.Close()
+
+	fmt.Println("Client connected:", conn.RemoteAddr())
+
+	// Create a buffered reader for the connection
+	reader := bufio.NewReader(conn)
+
+	for {
+		// Read data from the connection
+		message, err := reader.ReadString('\n')
+		if err != nil {
+			fmt.Println("Error reading data or client disconnected:", err)
+			break
+		}
+
+		// Print the received message
+		fmt.Println("Received:", message)
+
+		// Send a response back to the client
+		_, err = conn.Write([]byte("Hello from server!\n"))
+		if err != nil {
+			fmt.Println("Error writing to connection:", err)
+			break
+		}
 	}
 
-	fmt.Println("Received:", string(buffer[:n]))
-
-	// Send a response back to the client
-	conn.Write([]byte("Hello from server!"))
+	fmt.Println("Connection closed by client:", conn.RemoteAddr())
 }
