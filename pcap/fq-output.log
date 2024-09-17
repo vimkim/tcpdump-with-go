@@ -1,0 +1,67 @@
+.packets[3]
+     |00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f|0123456789abcdef|.packets[3]{}: packet
+0x110|                                          95 35|              .5|  ts_sec: 1726559637
+0x120|e9 66                                          |.f              |
+0x120|      65 d5 04 00                              |  e...          |  ts_usec: 316773
+0x120|                  50 00 00 00                  |      P...      |  incl_len: 80
+0x120|                              50 00 00 00      |          P...  |  orig_len: 80
+     |00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f|0123456789abcdef|
+0x120|                                          00 00|              ..|  packet{}: (ether8023_frame)
+0x130|00 00 00 00 00 00 00 00 00 00 08 00 45 00 00 42|............E..B|
+*    |until 0x17d.7 (80)                             |                |
+
+.packets[3].packet
+     |00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f|0123456789abcdef|.packets[3].packet{}: (ether8023_frame)
+0x120|                                          00 00|              ..|  destination: "00:00:00:00:00:00" (0x0)
+0x130|00 00 00 00                                    |....            |
+0x130|            00 00 00 00 00 00                  |    ......      |  source: "00:00:00:00:00:00" (0x0)
+0x130|                              08 00            |          ..    |  ether_type: "ipv4" (0x800) (Internet Protocol version 4)
+     |00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f|0123456789abcdef|
+0x130|                                    45 00 00 42|            E..B|  payload{}: (ipv4_packet)
+0x140|f3 88 40 00 40 06 49 2b 7f 00 00 01 7f 00 00 01|..@.@.I+........|
+*    |until 0x17d.7 (66)                             |                |
+
+.packets[3].packet.payload
+     |00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f|0123456789abcdef|.packets[3].packet.payload{}: (ipv4_packet)
+0x130|                                    45         |            E   |  version: 4 (valid)
+0x130|                                    45         |            E   |  ihl: 5
+0x130|                                       00      |             .  |  dscp: 0
+0x130|                                       00      |             .  |  ecn: 0
+0x130|                                          00 42|              .B|  total_length: 66
+0x140|f3 88                                          |..              |  identification: 62344
+0x140|      40                                       |  @             |  reserved: 0
+0x140|      40                                       |  @             |  dont_fragment: true
+0x140|      40                                       |  @             |  more_fragments: false
+0x140|      40 00                                    |  @.            |  fragment_offset: 0
+0x140|            40                                 |    @           |  ttl: 64
+0x140|               06                              |     .          |  protocol: "tcp" (6) (Transmission control protocol)
+0x140|                  49 2b                        |      I+        |  header_checksum: 0x492b (valid)
+0x140|                        7f 00 00 01            |        ....    |  source_ip: "127.0.0.1" (0x7f000001)
+0x140|                                    7f 00 00 01|            ....|  destination_ip: "127.0.0.1" (0x7f000001)
+     |00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f|0123456789abcdef|
+0x150|bd b2 1f 90 9b 4f fe c0 9f 38 9a 00 80 18 02 00|.....O...8......|  payload{}: (tcp_segment)
+*    |until 0x17d.7 (46)                             |                |
+
+.packets[3].packet.payload.payload
+     |00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f|0123456789abcdef|.packets[3].packet.payload.payload{}: (tcp_segment)
+0x150|bd b2                                          |..              |  source_port: 48562
+0x150|      1f 90                                    |  ..            |  destination_port: 8080
+0x150|            9b 4f fe c0                        |    .O..        |  sequence_number: 2605711040
+0x150|                        9f 38 9a 00            |        .8..    |  acknowledgment_number: 2671286784
+0x150|                                    80         |            .   |  data_offset: 8
+0x150|                                    80         |            .   |  reserved: 0
+0x150|                                    80         |            .   |  ns: false
+0x150|                                       18      |             .  |  cwr: false
+0x150|                                       18      |             .  |  ece: false
+0x150|                                       18      |             .  |  urg: false
+0x150|                                       18      |             .  |  ack: true
+0x150|                                       18      |             .  |  psh: true
+0x150|                                       18      |             .  |  rst: false
+0x150|                                       18      |             .  |  syn: false
+0x150|                                       18      |             .  |  fin: false
+0x150|                                          02 00|              ..|  window_size: 512
+0x160|fe 36                                          |.6              |  checksum: 0xfe36
+0x160|      00 00                                    |  ..            |  urgent_pointer: 0
+0x160|            01 01 08 0a f6 2e 97 04 f6 2e 97 04|    ............|  options[0:3]:
+0x170|48 65 6c 6c 6f 2c 20 53 65 72 76 65 72 21      |Hello, Server!  |  payload: raw bits
+
